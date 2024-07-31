@@ -8,11 +8,12 @@ export default class ruleManager{
     add(rule, p=1){
         this.rules.add(rule, p)
     }
+    //select rule according context and probability set
     pick(){
         return this.rules.pick()
     }
-    getSuccessor(params, age){
-        return this.pick().getSuccessor(params, age)
+    getSuccessor(params){
+        return this.pick().getSuccessor(params)
     }
 }
 export class Rule{
@@ -28,10 +29,11 @@ export class Rule{
         this.ageSetter = as
         return this
     }
-    getSuccessor(params, age){
+    getSuccessor(params){
+        let {parameters, age, context} = params
         var string = this.string.map(w=>new Word(w))
         if(this.paramSetter)
-            this.paramSetter(params, string)
+            this.paramSetter(parameters, string)
         if(this.ageSetter)
             this.ageSetter(age, string)
         return string

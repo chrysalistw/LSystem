@@ -18,9 +18,9 @@ export default class LSystem{
         this.axiom = ax
         this.string = [...ax].map((w,i)=>new Word(w).setParameters([p[i]]).setAge(a[i]))
     }
-    addWord(name, draw = ()=>{}){
+    addWord(name, draw){
         this.words[name] = new Word(name)
-        this.words[name].draw = draw
+        this.words[name].setDraw(draw)
     }
     addRule(word, string, prob){
         // parse the rule
@@ -52,7 +52,13 @@ export default class LSystem{
                 return
             }
             var indexOfWord = i // <------ 注目！
-            let successor = rules[w.name].getSuccessor(w.parameters, w.age/*, w.context*/)
+            // pack all parameters, age, context, parameters of contexts(?) together.
+            let params = {
+                parameters: w.parameters,
+                age: w.age,
+                context: undefined //build this context
+            }
+            let successor = rules[w.name].getSuccessor(params)
             result.push(...successor)
         })
         this.string = result

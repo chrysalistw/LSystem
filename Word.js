@@ -11,6 +11,10 @@ export default class Word{
     get arguments(){
         return this.parameters
     }
+    setDraw(d = ()=>{}){
+        this.draw = d
+        return this
+    }
     setParameters(p){
         this.parameters = p
         return this
