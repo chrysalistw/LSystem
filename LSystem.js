@@ -73,10 +73,9 @@ export default class LSystem{
             if(w.age)
                 str+="("+w.age+")"
         })
-        console.log(str)
         return str
     }
-    async draw(ctx){
+    draw(ctx){
         let words = this.words
         ctx.save()
         ctx.translate(this.origin.x, this.origin.y)
@@ -88,7 +87,6 @@ export default class LSystem{
             let age = w.age || undefined
             words[w.name]?.draw(ctx, parameters, age)
         })
-        //ctx.stroke()
         ctx.restore()
     }
 }
