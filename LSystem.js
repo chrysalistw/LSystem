@@ -23,18 +23,6 @@ export default class LSystem{
         this.words[name].setDraw(draw)
     }
     addRule(word, string, prob){
-        // parse the rule
-        /*
-        let moduleArray = parser(string)
-        string = moduleArray.map(m=>{
-            return new Word(m.name).setParameters(m.arguments)
-        })
-        */
-        /*
-        string = string.map(w=>{
-            return this.words[w]
-        })
-        */
         let rule = new Rule(word, string)
         if(!this.rules[word])
             this.rules[word] = new RuleManager()
@@ -47,16 +35,18 @@ export default class LSystem{
         var rules = this.rules
         this.string.forEach((w,i)=>{
             if(!rules[w.name]){
-                //result.push(words[w.name])
                 result.push(w)
                 return
             }
-            var indexOfWord = i // <------ 注目！
+            var index = i // <------ 注目！
+            // skip some specific structure?
+            // context matcher
             // pack all parameters, age, context, parameters of contexts(?) together.
             let params = {
                 parameters: w.parameters,
                 age: w.age,
-                context: undefined //build this context
+                index //build this context
+                // how much context should I send?
             }
             let successor = rules[w.name].getSuccessor(params)
             result.push(...successor)

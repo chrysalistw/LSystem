@@ -10,9 +10,11 @@ export default class ruleManager{
     }
     //select rule according context and probability set
     pick(){
+        //match conditions and contexts here
         return this.rules.pick()
     }
     getSuccessor(params){
+        //or here?
         return this.pick().getSuccessor(params)
     }
 }
@@ -29,9 +31,22 @@ export class Rule{
         this.ageSetter = as
         return this
     }
+    addCondition(cd){
+        this.addCondition = cd
+        return this
+    }
+    addContextMatcher(cf){
+        this.contextMatcher = cf
+        return this
+    }
     getSuccessor(params){
-        let {parameters, age, context} = params
+        let {parameters, age, index} = params
         var string = this.string.map(w=>new Word(w))
+        var matched
+        if(this.contextFitter)
+            matched = this.contextMatcher()
+        if(!matched) return
+
         if(this.paramSetter)
             this.paramSetter(parameters, string)
         if(this.ageSetter)

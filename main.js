@@ -4,8 +4,6 @@ import ls1 from "./ls1.js"
 var canvas = document.querySelector("canvas")
 var ctx = canvas.getContext("2d")
 
-var STEP = 7
-
 var garden = new Garden()
 
 ls1.setOrigin(700, 950)
@@ -16,6 +14,7 @@ garden.add(ls1)
 ctx.fillStyle = "white"
 ctx.fillRect(0, 0, 1400, 1000)
 
+var STEP = 7
 for(let i=0; i<STEP; i++){
     garden.updateAll()
     //garden.draw(ctx)
