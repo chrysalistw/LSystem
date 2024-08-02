@@ -29,6 +29,10 @@ export default class LSystem{
         this.rules[word].add(rule, prob)
         return rule
     }
+    addChecker(ch){
+        this.checker = ch
+        return this
+    }
     step(){
         var result = []
         var words = this.words
@@ -52,14 +56,17 @@ export default class LSystem{
             result.push(...successor)
         })
         this.string = result
+        console.log("before splice: ")
+        this.show()
+        this.checker(this.string)
         return result
     }
     show(){
         var str = ""
         this.string.forEach(w=>{
             str+=w.name
-            if(w.parameters)
-                str+="("+w.parameters.join(",")+")"
+            //if(w.parameters)
+            //    str+="("+w.parameters.join(",")+")"
             if(w.age)
                 str+="("+w.age+")"
         })

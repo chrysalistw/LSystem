@@ -13,7 +13,7 @@ garden.add(ls)
 ctx.fillStyle = "white"
 ctx.fillRect(0, 0, 1400, 1000)
 
-var STEP = 7
+var STEP = 10
 for(let i=0; i<STEP; i++){
     garden.updateAll()
     //garden.draw(ctx)
@@ -22,7 +22,8 @@ for(let i=0; i<STEP; i++){
 garden.draw(ctx)
 
 window.step = function(){
-    garden.step()
+    garden.updateAll()
+    garden.draw(ctx)
 }
 
 function downloadCanvasAsPng(canvas, filename) {
