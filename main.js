@@ -1,15 +1,14 @@
 import Garden from "./Garden.js"
-import ls1 from "./ls1.js"
+import ls from "./ls2.js"
 
 var canvas = document.querySelector("canvas")
 var ctx = canvas.getContext("2d")
 
 var garden = new Garden()
 
-ls1.setOrigin(700, 950)
-ls1.setAxiom("A", [350], [0])
+ls.setOrigin(700, 950)
 
-garden.add(ls1)
+garden.add(ls)
 
 ctx.fillStyle = "white"
 ctx.fillRect(0, 0, 1400, 1000)

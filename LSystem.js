@@ -58,11 +58,12 @@ export default class LSystem{
         var str = ""
         this.string.forEach(w=>{
             str+=w.name
-            //if(w.parameters)
-            //    str+="("+w.parameters.join(",")+")"
+            if(w.parameters)
+                str+="("+w.parameters.join(",")+")"
             if(w.age)
                 str+="("+w.age+")"
         })
+        console.log(str)
         return str
     }
     draw(ctx){

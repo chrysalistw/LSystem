@@ -9,13 +9,14 @@ export default class ruleManager{
         this.rules.add(rule, p)
     }
     //select rule according context and probability set
-    pick(){
+    pick(params){
+        //mix prob and conditions and contexts
         //match conditions and contexts here
-        return this.rules.pick()
+        return this.rules.pick(params)
     }
     getSuccessor(params){
         //or here?
-        return this.pick().getSuccessor(params)
+        return this.pick(params).getSuccessor(params)
     }
 }
 export class Rule{
@@ -32,7 +33,7 @@ export class Rule{
         return this
     }
     addCondition(cd){
-        this.addCondition = cd
+        this.condition = cd
         return this
     }
     addContextMatcher(cf){
@@ -43,10 +44,10 @@ export class Rule{
         let {parameters, age, index} = params
         var string = this.string.map(w=>new Word(w))
         var matched
-        if(this.contextFitter)
+        if(this.contextMatcher){
             matched = this.contextMatcher()
-        if(!matched) return
-
+            if(!matched) return
+        }
         if(this.paramSetter)
             this.paramSetter(parameters, string)
         if(this.ageSetter)
@@ -54,16 +55,6 @@ export class Rule{
         return string
     }
 }
-/*
-    parametric module rule definition:
-    var rule = ([a, b, c])=>{
-        if a+b > 5
-            return [a+b, b-2, c/3]
-        else
-            return [a-b, b-2, c+2]
-    }
-    // like this...?
-*/
 export class Picker{
     content = []
     probabilities = []
@@ -72,13 +63,26 @@ export class Picker{
         this.content.push(c)
         this.probabilities.push(p)
     }
-    pick(){
+    pick(params){
+        let probs = []
+        let rules = this.content.filter((rule,i)=>{
+            if(!rule.condition){
+                probs.push(this.probabilities[i])
+                return true
+            }
+            if(rule.condition(params.parameters)){
+                probs.push(this.probabilities[i])
+                return true
+            }
+            return false
+        })
         let r = Math.random()
         let cumul = 0
-        for(let i in this.probabilities){
-            cumul += this.probabilities[i]
+        for(let i in probs){
+            cumul += probs[i]
             if(r<cumul)
-                return this.content[i]
+                return rules[i]
+                //return this.content[i]
         }
         return undefined
     }

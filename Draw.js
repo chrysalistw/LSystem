@@ -3,11 +3,11 @@ export default {
         // empty function
     },
     forward: function(ctx, param, age){
-        var LENGTH = param[0]
-        LENGTH *= 1/(1+Math.exp(-age))
+        var LENGTH = param[0]*50
+        LENGTH *= age?1/(1+Math.exp(-age)):1
         ctx.beginPath()
-        ctx.strokeStyle = rgbToHex([0, 220-Math.floor(220*age/2.0), Math.floor(255*age/2.0)])
-        ctx.lineWidth = age*7
+        //ctx.strokeStyle = rgbToHex([0, 220-Math.floor(220*age/2.0), Math.floor(255*age/2.0)])
+        //ctx.lineWidth = age*7
         ctx.moveTo(0, 0)
         ctx.lineTo(LENGTH, 0)
         ctx.translate(LENGTH, 0)
@@ -15,11 +15,11 @@ export default {
     },
 
     turnRight: function(ctx,param){
-        var ANGLE = param[0]
+        var ANGLE = param[0] || Math.PI/3
         ctx.rotate(-ANGLE)
     },
     turnLeft: function(ctx,param){
-        var ANGLE = param[0]
+        var ANGLE = param[0] || Math.PI/3
         ctx.rotate(ANGLE)
     },
 

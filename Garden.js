@@ -10,6 +10,7 @@ export default class Garden{
     updateAll(){
         this.lsystems.forEach(ls=>{
             ls.step()
+            ls.show()
         })
     }
     draw(ctx){
