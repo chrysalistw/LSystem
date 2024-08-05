@@ -32,6 +32,10 @@ export class Rule{
         this.ageSetter = as
         return this
     }
+    addEffect(ef){
+        this.effect = ef
+        return this
+    }
     addCondition(cd){
         this.condition = cd
         return this
@@ -52,6 +56,8 @@ export class Rule{
             this.paramSetter(parameters, string)
         if(this.ageSetter)
             this.ageSetter(age, string)
+        if(this.effect)
+            this.effect(index)
         return string
     }
 }

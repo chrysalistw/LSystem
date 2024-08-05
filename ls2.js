@@ -27,33 +27,19 @@ ls.addRule("B", "FB".split("")).addParamSetter((params,str)=>{
 ls.addRule("X", "X".split("")).addCondition((params)=>params[0]>0).addParamSetter((params,str)=>{
     str[0].parameters = [params[0]-0.5]
 })
-ls.addRule("X", "F%".split("")).addCondition((params)=>params[0]==0).addParamSetter((params,str)=>{
+ls.addRule("X", "U%".split("")).addCondition((params)=>params[0]==0).addParamSetter((params,str)=>{
     str[0].parameters = [0.3]
 })
-/*
 ls.addRule("U", "F".split("")).addParamSetter((params,str)=>{
     str[0].parameters = [0.3]
 })
-*/
+ls.addRule("%", []).addEffect(function (index){
+    var string = this.string
 
-ls.addChecker(function checker(string){
-    while(true){
-        //find %
-        var startIndex = -1
-        startIndex = string.findIndex(w=>w.name=="%")
-
-        if(startIndex == -1)
-            break
-        //find ] after %
-        var endIndex = -1
-        endIndex = string.findIndex((w,i)=>w.name=="]"&&i>startIndex)
-
-        if(startIndex!=-1){
-            var spliced = string.splice(startIndex, endIndex-startIndex)
-            console.log(spliced)
-        }
-        //remove % and shed a branch
-    }
-})
+    var endIndex = -1
+    endIndex = string.findIndex((w,i)=>w.name=="]"&&i>index)
+    
+    string.splice(index, endIndex-index-1)
+}.bind(ls))
 
 export default ls

@@ -29,10 +29,6 @@ export default class LSystem{
         this.rules[word].add(rule, prob)
         return rule
     }
-    addChecker(ch){
-        this.checker = ch
-        return this
-    }
     step(){
         var result = []
         var words = this.words
@@ -43,7 +39,7 @@ export default class LSystem{
                 return
             }
             var index = i // <------ 注目！
-            // skip some specific structure?
+            // skip some specific structure? // yes
             // context matcher
             // pack all parameters, age, context, parameters of contexts(?) together.
             let params = {
@@ -56,9 +52,7 @@ export default class LSystem{
             result.push(...successor)
         })
         this.string = result
-        console.log("before splice: ")
         this.show()
-        this.checker(this.string)
         return result
     }
     show(){
