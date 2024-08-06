@@ -49,8 +49,8 @@ export class Rule{
         var string = this.string.map(w=>new Word(w))
         var matched
         if(this.contextMatcher){
-            matched = this.contextMatcher()
-            if(!matched) return
+            matched = this.contextMatcher(index)
+            if(!matched) return "false"
         }
         if(this.paramSetter)
             this.paramSetter(parameters, string)
@@ -88,7 +88,6 @@ export class Picker{
             cumul += probs[i]
             if(r<cumul)
                 return rules[i]
-                //return this.content[i]
         }
         return undefined
     }

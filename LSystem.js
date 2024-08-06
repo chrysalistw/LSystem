@@ -49,10 +49,13 @@ export default class LSystem{
                 // how much context should I send?
             }
             let successor = rules[w.name].getSuccessor(params)
+            if(successor=="false"){
+                result.push(w)
+                return
+            }
             result.push(...successor)
         })
         this.string = result
-        this.show()
         return result
     }
     show(){
