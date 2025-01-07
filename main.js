@@ -1,23 +1,23 @@
 import Garden from "./Garden.js"
 //import ls from "./ls2.js"
-import ls from "./ls3.js"
+import ls from "./ls4.js"
 
 var canvas = document.querySelector("canvas")
 var ctx = canvas.getContext("2d")
 
 var garden = new Garden()
 
-ls.setOrigin(700, 950)
+ls.setOrigin(700, 800)
 
 garden.add(ls)
 
 ctx.fillStyle = "white"
 ctx.fillRect(0, 0, 1400, 1000)
 
-var STEP = 10
+var STEP = 20
 for(let i=0; i<STEP; i++){
     garden.updateAll()
-    //garden.draw(ctx)
+    garden.draw(ctx)
     //downloadCanvasAsPng(canvas, `08020038-${i.toString().padStart(2,"0")}`)
 }
 garden.draw(ctx)
