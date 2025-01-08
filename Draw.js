@@ -3,7 +3,7 @@ export default {
         // empty function
     },
     forward: function(ctx, param, age){
-        var LENGTH = param[0]*50 || 10
+        var LENGTH = param[0]*50 || 30
         LENGTH *= age?1/(1+Math.exp(-age)):1
         ctx.beginPath()
         //ctx.strokeStyle = rgbToHex([0, 220-Math.floor(220*age/2.0), Math.floor(255*age/2.0)])

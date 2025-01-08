@@ -30,8 +30,8 @@ function endLeaf(ctx){
     ctx.setTransform(transform)
 }
 function markVertex(ctx){
-    let invertedMatrix = ctx.getTransform().invertSelf()
-    var pos = new DOMPoint(0, 0).matrixTransform(invertedMatrix);
+    let matrix = ctx.getTransform()
+    var pos = new DOMPoint(0, 0).matrixTransform(matrix);
     if(isFirstVertex){
         surface.moveTo(pos.x, pos.y)
         isFirstVertex = false
