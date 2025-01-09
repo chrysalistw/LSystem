@@ -1,6 +1,6 @@
 import Garden from "./Garden.js"
 //import ls from "./ls2.js"
-import ls from "./ls4.js"
+import ls from "./ls5.js"
 
 var canvas = document.querySelector("canvas")
 var ctx = canvas.getContext("2d")

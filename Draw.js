@@ -1,9 +1,11 @@
+var surface = null
+var isFirstVertex = true
 export default {
     empty: function(){
         // empty function
     },
     forward: function(ctx, param, age){
-        var LENGTH = param[0]*50 || 30
+        var LENGTH = param[0]*5
         LENGTH *= age?1/(1+Math.exp(-age)):1
         ctx.beginPath()
         //ctx.strokeStyle = rgbToHex([0, 220-Math.floor(220*age/2.0), Math.floor(255*age/2.0)])
@@ -15,11 +17,11 @@ export default {
     },
 
     turnRight: function(ctx,param){
-        var ANGLE = param[0] || Math.PI/20
+        var ANGLE = param[0] || Math.PI/3
         ctx.rotate(-ANGLE)
     },
     turnLeft: function(ctx,param){
-        var ANGLE = param[0] || Math.PI/20
+        var ANGLE = param[0] || Math.PI/3
         ctx.rotate(ANGLE)
     },
 
@@ -29,6 +31,29 @@ export default {
     endBranch: function(ctx){
         ctx.restore()
     },
+    startLeaf: function(ctx){
+        surface = new Path2D()
+    },
+    endLeaf: function(ctx){
+        var transform = ctx.getTransform()
+        ctx.resetTransform()
+        ctx.fillStyle = "green"
+        ctx.globalAlpha = 0.8
+        ctx.fill(surface)
+        ctx.stroke(surface)
+        surface = null
+        ctx.setTransform(transform)
+    },
+    markVertex: function(ctx){
+        let matrix = ctx.getTransform()
+        var pos = new DOMPoint(0, 0).matrixTransform(matrix);
+        if(isFirstVertex){
+            surface.moveTo(pos.x, pos.y)
+            isFirstVertex = false
+        }
+        else
+            surface.lineTo(pos.x, pos.y)
+}
 }
 function hexToRgb(hex) {
     // Remove the hash at the start if it's there
